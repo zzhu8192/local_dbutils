@@ -3,14 +3,13 @@ requires = ["setuptools>=61.0", "wheel"]
 build-backend = "setuptools.build_meta"
 
 [project]
-name = "local-dbutils"
+name = "local_dbutils"
 description = ""
 authors = [
     { name = "Zheng Zhu", email = "zzhu8192@gmail.com" }
 ]
 requires-python = ">=3.12"
 readme = "README.md"
-# see setup.py
 dynamic = ["version"]
 dependencies = [
 ]
@@ -21,22 +20,11 @@ test = [
     "pytest-xdist>=3.8.0",
 ]
 
-[project.scripts]
-main = "etl.main:main"
-
-[project.entry-points.packages]
-main = "etl.main:main"
-
 [tool.uv]
 package = true
 
 [tool.setuptools.packages.find]
 where = ["src"]
-
-[tool.setuptools.package-data]
-main = [
-    "resources/**/*"
-]
 
 [tool.pyright]
 include = ["src", "tests"]
@@ -60,10 +48,3 @@ filterwarnings = [
     "ignore::PendingDeprecationWarning",
 ]
 
-[tool.black]
-line-length = 88
-target-version = ['py312']
-
-[tool.isort]
-profile = "black"
-line_length = 88
