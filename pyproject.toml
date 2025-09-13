@@ -1,16 +1,69 @@
-[project]
-name = "local-dbutils"
-version = "0.1.0"
-description = "Local filesystem + PySpark-friendly shim for Databricks dbutils.fs"
-readme = "README.md"
-requires-python = ">=3.10"
-authors = [{ name = "Local Dev" }]
-
 [build-system]
-requires = ["setuptools>=61.0"]
+requires = ["setuptools>=61.0", "wheel"]
 build-backend = "setuptools.build_meta"
 
-[tool.setuptools]
-package-dir = {"" = "src"}
-packages = ["local_dbutils"]
+[project]
+name = "local-dbutils"
+description = ""
+authors = [
+    { name = "Zheng Zhu", email = "zzhu8192@gmail.com" }
+]
+requires-python = ">=3.12"
+readme = "README.md"
+# see setup.py
+dynamic = ["version"]
+dependencies = [
+]
 
+[dependency-groups]
+test = [
+    "pytest>=8.4.2",
+    "pytest-xdist>=3.8.0",
+]
+
+[project.scripts]
+main = "etl.main:main"
+
+[project.entry-points.packages]
+main = "etl.main:main"
+
+[tool.uv]
+package = true
+
+[tool.setuptools.packages.find]
+where = ["src"]
+
+[tool.setuptools.package-data]
+main = [
+    "resources/**/*"
+]
+
+[tool.pyright]
+include = ["src", "tests"]
+exclude = ["**/__pycache__", "**/.venv"]
+pythonVersion = "3.12"
+typeCheckingMode = "basic"
+reportMissingImports = false
+reportMissingTypeStubs = false
+reportOptionalMemberAccess = true
+
+[tool.pytest.ini_options]
+log_level = "WARNING"
+log_cli_level = "WARNING"
+testpaths = ["tests"]
+python_files = ["test_*.py"]
+python_classes = ["Test*"]
+python_functions = ["test_*"]
+addopts = ["-v", "--tb=short"]
+filterwarnings = [
+    "ignore::DeprecationWarning",
+    "ignore::PendingDeprecationWarning",
+]
+
+[tool.black]
+line-length = 88
+target-version = ['py312']
+
+[tool.isort]
+profile = "black"
+line_length = 88
